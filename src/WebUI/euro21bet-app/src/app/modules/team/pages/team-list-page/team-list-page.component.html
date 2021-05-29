@@ -1,0 +1,8 @@
+<!-- <p>team-list-page works!</p> -->
+<!-- <e21b-user-profile></e21b-user-profile>
+<e21b-auth-button></e21b-auth-button>
+<e21b-metadata></e21b-metadata> -->
+
+<ng-container *ngFor="let t of teams$ | async">
+	<pre>{{ t | json }}</pre>
+</ng-container>
