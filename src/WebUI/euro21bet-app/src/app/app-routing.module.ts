@@ -14,13 +14,18 @@ const routes: Routes = [
 			{
 				path: '',
 
-				redirectTo: ROUTES.TEAM,
+				redirectTo: ROUTES.STANDINGS,
 				pathMatch: 'full',
 			},
 			{
 				path: ROUTES.TEAM,
 				loadChildren: () =>
 					import('@modules/team/team.module').then(m => m.TeamModule)
+			},
+			{
+				path: ROUTES.STANDINGS,
+				loadChildren: () =>
+					import('@modules/standings/standings.module').then(m => m.StandingsModule)
 			},
 			{
 				path: ROUTES.CONTACT,

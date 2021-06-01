@@ -14,6 +14,72 @@ import { HttpClient, HttpHeaders, HttpResponse, HttpResponseBase } from '@angula
 
 export const API_BASE_URL = new InjectionToken<string>('API_BASE_URL');
 
+export interface IStandingsClient {
+    getAll(): Observable<StandingsPageViewModel>;
+}
+
+@Injectable({
+    providedIn: 'root'
+})
+export class StandingsClient implements IStandingsClient {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
+    }
+
+    getAll(): Observable<StandingsPageViewModel> {
+        let url_ = this.baseUrl + "/api/Standings";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAll(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAll(<any>response_);
+                } catch (e) {
+                    return <Observable<StandingsPageViewModel>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<StandingsPageViewModel>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetAll(response: HttpResponseBase): Observable<StandingsPageViewModel> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = StandingsPageViewModel.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<StandingsPageViewModel>(<any>null);
+    }
+}
+
 export interface ITeamClient {
     getAll(): Observable<TeamDto[]>;
 }
@@ -85,6 +151,178 @@ export class TeamClient implements ITeamClient {
         }
         return _observableOf<TeamDto[]>(<any>null);
     }
+}
+
+export class StandingsPageViewModel implements IStandingsPageViewModel {
+    standings?: StandingsViewModel[];
+
+    constructor(data?: IStandingsPageViewModel) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            if (Array.isArray(_data["standings"])) {
+                this.standings = [] as any;
+                for (let item of _data["standings"])
+                    this.standings!.push(StandingsViewModel.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): StandingsPageViewModel {
+        data = typeof data === 'object' ? data : {};
+        let result = new StandingsPageViewModel();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        if (Array.isArray(this.standings)) {
+            data["standings"] = [];
+            for (let item of this.standings)
+                data["standings"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IStandingsPageViewModel {
+    standings?: StandingsViewModel[];
+}
+
+export class StandingsViewModel implements IStandingsViewModel {
+    name?: string;
+    records?: StandingsRecord[];
+
+    constructor(data?: IStandingsViewModel) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.name = _data["name"];
+            if (Array.isArray(_data["records"])) {
+                this.records = [] as any;
+                for (let item of _data["records"])
+                    this.records!.push(StandingsRecord.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): StandingsViewModel {
+        data = typeof data === 'object' ? data : {};
+        let result = new StandingsViewModel();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["name"] = this.name;
+        if (Array.isArray(this.records)) {
+            data["records"] = [];
+            for (let item of this.records)
+                data["records"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IStandingsViewModel {
+    name?: string;
+    records?: StandingsRecord[];
+}
+
+export class StandingsRecord implements IStandingsRecord {
+    position?: number;
+    crestUrl?: string;
+    teamId?: number;
+    team?: string;
+    matchesPlayed?: number;
+    won?: number;
+    draw?: number;
+    loss?: number;
+    goalFor?: number;
+    goalAgainst?: number;
+    goalDifference?: number;
+    points?: number;
+
+    constructor(data?: IStandingsRecord) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.position = _data["position"];
+            this.crestUrl = _data["crestUrl"];
+            this.teamId = _data["teamId"];
+            this.team = _data["team"];
+            this.matchesPlayed = _data["matchesPlayed"];
+            this.won = _data["won"];
+            this.draw = _data["draw"];
+            this.loss = _data["loss"];
+            this.goalFor = _data["goalFor"];
+            this.goalAgainst = _data["goalAgainst"];
+            this.goalDifference = _data["goalDifference"];
+            this.points = _data["points"];
+        }
+    }
+
+    static fromJS(data: any): StandingsRecord {
+        data = typeof data === 'object' ? data : {};
+        let result = new StandingsRecord();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["position"] = this.position;
+        data["crestUrl"] = this.crestUrl;
+        data["teamId"] = this.teamId;
+        data["team"] = this.team;
+        data["matchesPlayed"] = this.matchesPlayed;
+        data["won"] = this.won;
+        data["draw"] = this.draw;
+        data["loss"] = this.loss;
+        data["goalFor"] = this.goalFor;
+        data["goalAgainst"] = this.goalAgainst;
+        data["goalDifference"] = this.goalDifference;
+        data["points"] = this.points;
+        return data; 
+    }
+}
+
+export interface IStandingsRecord {
+    position?: number;
+    crestUrl?: string;
+    teamId?: number;
+    team?: string;
+    matchesPlayed?: number;
+    won?: number;
+    draw?: number;
+    loss?: number;
+    goalFor?: number;
+    goalAgainst?: number;
+    goalDifference?: number;
+    points?: number;
 }
 
 export class TeamDto implements ITeamDto {

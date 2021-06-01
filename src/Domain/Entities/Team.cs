@@ -21,5 +21,7 @@ namespace Euro21bet.Domain.Entities
         public string CrestUrl { get; private set; }
         public int GroupId { get; set; }
         public Group Group { get; set; }
+        public int StandingsId { get; set; }
+        public Standings Standings { get; set; }
     }
 }

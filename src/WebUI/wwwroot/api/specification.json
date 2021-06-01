@@ -6,6 +6,31 @@
     "version": "1.0.0"
   },
   "paths": {
+    "/api/Standings": {
+      "get": {
+        "tags": [
+          "Standings"
+        ],
+        "operationId": "Standings_GetAll",
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StandingsPageViewModel"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
     "/api/Team": {
       "get": {
         "tags": [
@@ -37,6 +62,85 @@
   },
   "components": {
     "schemas": {
+      "StandingsPageViewModel": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "standings": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/StandingsViewModel"
+            }
+          }
+        }
+      },
+      "StandingsViewModel": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "records": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/StandingsRecord"
+            }
+          }
+        }
+      },
+      "StandingsRecord": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "position": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "crestUrl": {
+            "type": "string"
+          },
+          "teamId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "team": {
+            "type": "string"
+          },
+          "matchesPlayed": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "won": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "draw": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "loss": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "goalFor": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "goalAgainst": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "goalDifference": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "points": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
       "TeamDto": {
         "type": "object",
         "additionalProperties": false,
