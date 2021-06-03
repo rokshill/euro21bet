@@ -22,12 +22,10 @@ namespace Euro21bet.Domain.Entities
         public string Name { get; private set; }
         public IEnumerable<Team> Teams => _teams;
         public IEnumerable<Match> Matches => _matches;
-        public IEnumerable<Standings> Standings { get; set; }
 
         public void AddTeam(Team team)
         {
             team.Group = this;
-            team.GroupId = Id;
             _teams.Add(team);
         }
 

@@ -1,21 +1,8 @@
-﻿using System.Collections.Generic;
-using AutoMapper;
-using Euro21bet.Application.Common.Mappings;
+﻿using Euro21bet.Application.Common.Mappings;
 using Euro21bet.Domain.Entities;
 
 namespace Euro21bet.Application.Standings.Queries
 {
-    public class StandingsPageViewModel
-    {
-        public List<StandingsViewModel> Standings { get; set; } = new();
-    }
-
-    public class StandingsViewModel
-    {
-        public string Name { get; set; }
-        public List<StandingsRecord> Records { get; set; } = new();
-    }
-
     public class StandingsRecord : IMapFrom<Team>
     {
         public int Position { get; set; }
@@ -38,5 +25,4 @@ namespace Euro21bet.Application.Standings.Queries
         //        .ForMember(d => d.CrestUrl, opt => opt.MapFrom(s => s.));
         //}
     }
-
 }

@@ -1,4 +1,5 @@
-﻿using Ardalis.GuardClauses;
+﻿using System.Collections.Generic;
+using Ardalis.GuardClauses;
 using Euro21bet.Domain.Common;
 
 namespace Euro21bet.Domain.Entities
@@ -14,14 +15,15 @@ namespace Euro21bet.Domain.Entities
             CrestUrl = Guard.Against.NullOrWhiteSpace(crestUrl, nameof(crestUrl));
 
             Group = group;
+            Standings = new Standings();
         }
 
         public string Name { get; private set; }
         public string ShortName { get; private set; }
         public string CrestUrl { get; private set; }
-        public int GroupId { get; set; }
         public Group Group { get; set; }
-        public int StandingsId { get; set; }
         public Standings Standings { get; set; }
+        public IEnumerable<Match> HomeMatches { get; set; }
+        public IEnumerable<Match> AwayMatches { get; set; }
     }
 }

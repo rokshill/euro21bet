@@ -4,8 +4,6 @@ import { StandingsPageComponent } from './pages/standings-page/standings-page.co
 import { StandingsRoutingModule } from './standings-routing.module';
 import { StandingsComponent } from './standings.component';
 
-
-
 @NgModule({
 	declarations: [
 		StandingsComponent,

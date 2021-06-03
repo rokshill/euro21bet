@@ -4,12 +4,8 @@ namespace Euro21bet.Domain.Entities
 {
     public class Standings : AuditableEntity
     {
-        public int GroupId { get; set; }
-        public Group Group { get; set; }
-
         public int TeamId { get; set; }
-        public Team Team { get; set; }
-
+        
         public int Position { get; set; }
         public int MatchesPlayed { get; set; }
         public int Won { get; set; }

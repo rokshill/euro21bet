@@ -14,8 +14,74 @@ import { HttpClient, HttpHeaders, HttpResponse, HttpResponseBase } from '@angula
 
 export const API_BASE_URL = new InjectionToken<string>('API_BASE_URL');
 
+export interface IMatchClient {
+    getAll(): Observable<MatchesPageVm>;
+}
+
+@Injectable({
+    providedIn: 'root'
+})
+export class MatchClient implements IMatchClient {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
+    }
+
+    getAll(): Observable<MatchesPageVm> {
+        let url_ = this.baseUrl + "/api/Match";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAll(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAll(<any>response_);
+                } catch (e) {
+                    return <Observable<MatchesPageVm>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<MatchesPageVm>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetAll(response: HttpResponseBase): Observable<MatchesPageVm> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = MatchesPageVm.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<MatchesPageVm>(<any>null);
+    }
+}
+
 export interface IStandingsClient {
-    getAll(): Observable<StandingsPageViewModel>;
+    getAll(): Observable<StandingsPageVm>;
 }
 
 @Injectable({
@@ -31,7 +97,7 @@ export class StandingsClient implements IStandingsClient {
         this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
     }
 
-    getAll(): Observable<StandingsPageViewModel> {
+    getAll(): Observable<StandingsPageVm> {
         let url_ = this.baseUrl + "/api/Standings";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -50,14 +116,14 @@ export class StandingsClient implements IStandingsClient {
                 try {
                     return this.processGetAll(<any>response_);
                 } catch (e) {
-                    return <Observable<StandingsPageViewModel>><any>_observableThrow(e);
+                    return <Observable<StandingsPageVm>><any>_observableThrow(e);
                 }
             } else
-                return <Observable<StandingsPageViewModel>><any>_observableThrow(response_);
+                return <Observable<StandingsPageVm>><any>_observableThrow(response_);
         }));
     }
 
-    protected processGetAll(response: HttpResponseBase): Observable<StandingsPageViewModel> {
+    protected processGetAll(response: HttpResponseBase): Observable<StandingsPageVm> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -68,7 +134,7 @@ export class StandingsClient implements IStandingsClient {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             let result200: any = null;
             let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = StandingsPageViewModel.fromJS(resultData200);
+            result200 = StandingsPageVm.fromJS(resultData200);
             return _observableOf(result200);
             }));
         } else if (status !== 200 && status !== 204) {
@@ -76,7 +142,7 @@ export class StandingsClient implements IStandingsClient {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<StandingsPageViewModel>(<any>null);
+        return _observableOf<StandingsPageVm>(<any>null);
     }
 }
 
@@ -153,10 +219,218 @@ export class TeamClient implements ITeamClient {
     }
 }
 
-export class StandingsPageViewModel implements IStandingsPageViewModel {
-    standings?: StandingsViewModel[];
+export class MatchesPageVm implements IMatchesPageVm {
+    rounds?: RoundVm[];
 
-    constructor(data?: IStandingsPageViewModel) {
+    constructor(data?: IMatchesPageVm) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            if (Array.isArray(_data["rounds"])) {
+                this.rounds = [] as any;
+                for (let item of _data["rounds"])
+                    this.rounds!.push(RoundVm.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): MatchesPageVm {
+        data = typeof data === 'object' ? data : {};
+        let result = new MatchesPageVm();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        if (Array.isArray(this.rounds)) {
+            data["rounds"] = [];
+            for (let item of this.rounds)
+                data["rounds"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IMatchesPageVm {
+    rounds?: RoundVm[];
+}
+
+export class RoundVm implements IRoundVm {
+    id?: number;
+    name?: string;
+    type?: string;
+    matches?: MatchVm[];
+
+    constructor(data?: IRoundVm) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.name = _data["name"];
+            this.type = _data["type"];
+            if (Array.isArray(_data["matches"])) {
+                this.matches = [] as any;
+                for (let item of _data["matches"])
+                    this.matches!.push(MatchVm.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): RoundVm {
+        data = typeof data === 'object' ? data : {};
+        let result = new RoundVm();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["name"] = this.name;
+        data["type"] = this.type;
+        if (Array.isArray(this.matches)) {
+            data["matches"] = [];
+            for (let item of this.matches)
+                data["matches"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IRoundVm {
+    id?: number;
+    name?: string;
+    type?: string;
+    matches?: MatchVm[];
+}
+
+export class MatchVm implements IMatchVm {
+    id?: number;
+    matchDateTime?: Date;
+    type?: string;
+    homeTeam?: TeamVm;
+    awayTeam?: TeamVm;
+
+    constructor(data?: IMatchVm) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.matchDateTime = _data["matchDateTime"] ? new Date(_data["matchDateTime"].toString()) : <any>undefined;
+            this.type = _data["type"];
+            this.homeTeam = _data["homeTeam"] ? TeamVm.fromJS(_data["homeTeam"]) : <any>undefined;
+            this.awayTeam = _data["awayTeam"] ? TeamVm.fromJS(_data["awayTeam"]) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): MatchVm {
+        data = typeof data === 'object' ? data : {};
+        let result = new MatchVm();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["matchDateTime"] = this.matchDateTime ? this.matchDateTime.toISOString() : <any>undefined;
+        data["type"] = this.type;
+        data["homeTeam"] = this.homeTeam ? this.homeTeam.toJSON() : <any>undefined;
+        data["awayTeam"] = this.awayTeam ? this.awayTeam.toJSON() : <any>undefined;
+        return data; 
+    }
+}
+
+export interface IMatchVm {
+    id?: number;
+    matchDateTime?: Date;
+    type?: string;
+    homeTeam?: TeamVm;
+    awayTeam?: TeamVm;
+}
+
+export class TeamVm implements ITeamVm {
+    id?: number;
+    name?: string;
+    shortName?: string;
+    crestUrl?: string;
+    groupId?: number;
+    group?: string;
+
+    constructor(data?: ITeamVm) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.name = _data["name"];
+            this.shortName = _data["shortName"];
+            this.crestUrl = _data["crestUrl"];
+            this.groupId = _data["groupId"];
+            this.group = _data["group"];
+        }
+    }
+
+    static fromJS(data: any): TeamVm {
+        data = typeof data === 'object' ? data : {};
+        let result = new TeamVm();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["name"] = this.name;
+        data["shortName"] = this.shortName;
+        data["crestUrl"] = this.crestUrl;
+        data["groupId"] = this.groupId;
+        data["group"] = this.group;
+        return data; 
+    }
+}
+
+export interface ITeamVm {
+    id?: number;
+    name?: string;
+    shortName?: string;
+    crestUrl?: string;
+    groupId?: number;
+    group?: string;
+}
+
+export class StandingsPageVm implements IStandingsPageVm {
+    standings?: StandingsVm[];
+
+    constructor(data?: IStandingsPageVm) {
         if (data) {
             for (var property in data) {
                 if (data.hasOwnProperty(property))
@@ -170,14 +444,14 @@ export class StandingsPageViewModel implements IStandingsPageViewModel {
             if (Array.isArray(_data["standings"])) {
                 this.standings = [] as any;
                 for (let item of _data["standings"])
-                    this.standings!.push(StandingsViewModel.fromJS(item));
+                    this.standings!.push(StandingsVm.fromJS(item));
             }
         }
     }
 
-    static fromJS(data: any): StandingsPageViewModel {
+    static fromJS(data: any): StandingsPageVm {
         data = typeof data === 'object' ? data : {};
-        let result = new StandingsPageViewModel();
+        let result = new StandingsPageVm();
         result.init(data);
         return result;
     }
@@ -193,15 +467,15 @@ export class StandingsPageViewModel implements IStandingsPageViewModel {
     }
 }
 
-export interface IStandingsPageViewModel {
-    standings?: StandingsViewModel[];
+export interface IStandingsPageVm {
+    standings?: StandingsVm[];
 }
 
-export class StandingsViewModel implements IStandingsViewModel {
+export class StandingsVm implements IStandingsVm {
     name?: string;
     records?: StandingsRecord[];
 
-    constructor(data?: IStandingsViewModel) {
+    constructor(data?: IStandingsVm) {
         if (data) {
             for (var property in data) {
                 if (data.hasOwnProperty(property))
@@ -221,9 +495,9 @@ export class StandingsViewModel implements IStandingsViewModel {
         }
     }
 
-    static fromJS(data: any): StandingsViewModel {
+    static fromJS(data: any): StandingsVm {
         data = typeof data === 'object' ? data : {};
-        let result = new StandingsViewModel();
+        let result = new StandingsVm();
         result.init(data);
         return result;
     }
@@ -240,7 +514,7 @@ export class StandingsViewModel implements IStandingsViewModel {
     }
 }
 
-export interface IStandingsViewModel {
+export interface IStandingsVm {
     name?: string;
     records?: StandingsRecord[];
 }

@@ -1,21 +1,19 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using Euro21bet.Application.Common.Interfaces;
-using Euro21bet.Application.Common.Models;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 namespace Euro21bet.Application.Standings.Queries
 {
-    public class GetStandingsQuery : IRequest<StandingsPageViewModel>
+    public class GetStandingsQuery : IRequest<StandingsPageVm>
     {
         
     }
 
-    public class GetStandingsQueryHandler : IRequestHandler<GetStandingsQuery, StandingsPageViewModel>
+    public class GetStandingsQueryHandler : IRequestHandler<GetStandingsQuery, StandingsPageVm>
     {
         private readonly IApplicationDbContext _context;
         private readonly IMapper _mapper;
@@ -26,11 +24,11 @@ namespace Euro21bet.Application.Standings.Queries
             _mapper = mapper;
         }
 
-        public async Task<StandingsPageViewModel> Handle(GetStandingsQuery request, CancellationToken cancellationToken)
+        public async Task<StandingsPageVm> Handle(GetStandingsQuery request, CancellationToken cancellationToken)
         {
-            var groups = _context.Groups.Include(g => g.Teams).AsNoTracking().ToList();
+            var groups = _context.Groups.Include(g => g.Teams).ThenInclude(x => x.Standings).AsNoTracking().ToList();
 
-            var standingsList = groups.Select(g => new StandingsViewModel()
+            var standingsList = groups.Select(g => new StandingsVm()
             {
                 Name = g.Name,
                 Records = g.Teams.OrderBy(t => t.ShortName).Select(t => new StandingsRecord()
@@ -59,7 +57,7 @@ namespace Euro21bet.Application.Standings.Queries
                 }
             }
 
-            return new StandingsPageViewModel()
+            return new StandingsPageVm()
             {
                 Standings = standingsList
             };
