@@ -74,6 +74,55 @@ namespace Euro21bet.Infrastructure.Persistence.Migrations
                     b.ToTable("Matches");
                 });
 
+            modelBuilder.Entity("Euro21bet.Domain.Entities.MatchBet", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("AwayScore")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("HomeScore")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("LastModified")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("LastModifiedBy")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("MatchId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Points")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserEmail")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MatchId");
+
+                    b.HasIndex("UserEmail");
+
+                    b.ToTable("MatchBet");
+                });
+
             modelBuilder.Entity("Euro21bet.Domain.Entities.Round", b =>
                 {
                     b.Property<int>("Id")
@@ -178,6 +227,67 @@ namespace Euro21bet.Infrastructure.Persistence.Migrations
                     b.ToTable("Teams");
                 });
 
+            modelBuilder.Entity("Euro21bet.Domain.Entities.TeamBet", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("GroupId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("LastModified")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("LastModifiedBy")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("MatchId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Points")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("RoundId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TeamId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserEmail")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("GroupId");
+
+                    b.HasIndex("MatchId");
+
+                    b.HasIndex("RoundId");
+
+                    b.HasIndex("TeamId");
+
+                    b.HasIndex("UserEmail");
+
+                    b.ToTable("TeamBet");
+                });
+
             modelBuilder.Entity("Euro21bet.Domain.Entities.User", b =>
                 {
                     b.Property<string>("Email")
@@ -258,6 +368,25 @@ namespace Euro21bet.Infrastructure.Persistence.Migrations
                     b.Navigation("Round");
                 });
 
+            modelBuilder.Entity("Euro21bet.Domain.Entities.MatchBet", b =>
+                {
+                    b.HasOne("Euro21bet.Domain.Entities.Match", "Match")
+                        .WithMany()
+                        .HasForeignKey("MatchId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Euro21bet.Domain.Entities.User", "User")
+                        .WithMany("MatchBets")
+                        .HasForeignKey("UserEmail")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Match");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("Euro21bet.Domain.Entities.Standings", b =>
                 {
                     b.HasOne("Euro21bet.Domain.Entities.Team", null)
@@ -278,11 +407,51 @@ namespace Euro21bet.Infrastructure.Persistence.Migrations
                     b.Navigation("Group");
                 });
 
+            modelBuilder.Entity("Euro21bet.Domain.Entities.TeamBet", b =>
+                {
+                    b.HasOne("Euro21bet.Domain.Entities.Group", "Group")
+                        .WithMany()
+                        .HasForeignKey("GroupId");
+
+                    b.HasOne("Euro21bet.Domain.Entities.Match", null)
+                        .WithMany("Bets")
+                        .HasForeignKey("MatchId");
+
+                    b.HasOne("Euro21bet.Domain.Entities.Round", "Round")
+                        .WithMany()
+                        .HasForeignKey("RoundId");
+
+                    b.HasOne("Euro21bet.Domain.Entities.Team", "Team")
+                        .WithMany("Bets")
+                        .HasForeignKey("TeamId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Euro21bet.Domain.Entities.User", "User")
+                        .WithMany("TeamBets")
+                        .HasForeignKey("UserEmail")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Group");
+
+                    b.Navigation("Round");
+
+                    b.Navigation("Team");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("Euro21bet.Domain.Entities.Group", b =>
                 {
                     b.Navigation("Matches");
 
                     b.Navigation("Teams");
+                });
+
+            modelBuilder.Entity("Euro21bet.Domain.Entities.Match", b =>
+                {
+                    b.Navigation("Bets");
                 });
 
             modelBuilder.Entity("Euro21bet.Domain.Entities.Round", b =>
@@ -294,10 +463,19 @@ namespace Euro21bet.Infrastructure.Persistence.Migrations
                 {
                     b.Navigation("AwayMatches");
 
+                    b.Navigation("Bets");
+
                     b.Navigation("HomeMatches");
 
                     b.Navigation("Standings")
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Euro21bet.Domain.Entities.User", b =>
+                {
+                    b.Navigation("MatchBets");
+
+                    b.Navigation("TeamBets");
                 });
 #pragma warning restore 612, 618
         }

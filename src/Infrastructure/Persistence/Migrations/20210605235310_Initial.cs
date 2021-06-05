@@ -174,6 +174,115 @@ namespace Euro21bet.Infrastructure.Persistence.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "MatchBet",
+                schema: "euro21bet",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    MatchId = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    UserEmail = table.Column<string>(type: "nvarchar(200)", nullable: false),
+                    HomeScore = table.Column<int>(type: "int", nullable: false),
+                    AwayScore = table.Column<int>(type: "int", nullable: false),
+                    Points = table.Column<int>(type: "int", nullable: false),
+                    Created = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    LastModified = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LastModifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_MatchBet", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_MatchBet_Matches_MatchId",
+                        column: x => x.MatchId,
+                        principalSchema: "euro21bet",
+                        principalTable: "Matches",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_MatchBet_Users_UserEmail",
+                        column: x => x.UserEmail,
+                        principalSchema: "euro21bet",
+                        principalTable: "Users",
+                        principalColumn: "Email",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TeamBet",
+                schema: "euro21bet",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    TeamId = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    UserEmail = table.Column<string>(type: "nvarchar(200)", nullable: false),
+                    Type = table.Column<int>(type: "int", nullable: false),
+                    GroupId = table.Column<int>(type: "int", nullable: true),
+                    RoundId = table.Column<int>(type: "int", nullable: true),
+                    Points = table.Column<int>(type: "int", nullable: false),
+                    MatchId = table.Column<int>(type: "int", nullable: true),
+                    Created = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    LastModified = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LastModifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TeamBet", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_TeamBet_Groups_GroupId",
+                        column: x => x.GroupId,
+                        principalSchema: "euro21bet",
+                        principalTable: "Groups",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_TeamBet_Matches_MatchId",
+                        column: x => x.MatchId,
+                        principalSchema: "euro21bet",
+                        principalTable: "Matches",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_TeamBet_Rounds_RoundId",
+                        column: x => x.RoundId,
+                        principalSchema: "euro21bet",
+                        principalTable: "Rounds",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_TeamBet_Teams_TeamId",
+                        column: x => x.TeamId,
+                        principalSchema: "euro21bet",
+                        principalTable: "Teams",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_TeamBet_Users_UserEmail",
+                        column: x => x.UserEmail,
+                        principalSchema: "euro21bet",
+                        principalTable: "Users",
+                        principalColumn: "Email",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_MatchBet_MatchId",
+                schema: "euro21bet",
+                table: "MatchBet",
+                column: "MatchId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_MatchBet_UserEmail",
+                schema: "euro21bet",
+                table: "MatchBet",
+                column: "UserEmail");
+
             migrationBuilder.CreateIndex(
                 name: "IX_Matches_AwayTeamId",
                 schema: "euro21bet",
@@ -206,6 +315,36 @@ namespace Euro21bet.Infrastructure.Persistence.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_TeamBet_GroupId",
+                schema: "euro21bet",
+                table: "TeamBet",
+                column: "GroupId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TeamBet_MatchId",
+                schema: "euro21bet",
+                table: "TeamBet",
+                column: "MatchId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TeamBet_RoundId",
+                schema: "euro21bet",
+                table: "TeamBet",
+                column: "RoundId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TeamBet_TeamId",
+                schema: "euro21bet",
+                table: "TeamBet",
+                column: "TeamId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TeamBet_UserEmail",
+                schema: "euro21bet",
+                table: "TeamBet",
+                column: "UserEmail");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Teams_GroupId",
                 schema: "euro21bet",
                 table: "Teams",
@@ -215,7 +354,7 @@ namespace Euro21bet.Infrastructure.Persistence.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Matches",
+                name: "MatchBet",
                 schema: "euro21bet");
 
             migrationBuilder.DropTable(
@@ -223,11 +362,19 @@ namespace Euro21bet.Infrastructure.Persistence.Migrations
                 schema: "euro21bet");
 
             migrationBuilder.DropTable(
-                name: "Users",
+                name: "TeamBet",
                 schema: "euro21bet");
 
             migrationBuilder.DropTable(
                 name: "Venues",
+                schema: "euro21bet");
+
+            migrationBuilder.DropTable(
+                name: "Matches",
+                schema: "euro21bet");
+
+            migrationBuilder.DropTable(
+                name: "Users",
                 schema: "euro21bet");
 
             migrationBuilder.DropTable(

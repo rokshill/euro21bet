@@ -25,5 +25,7 @@ namespace Euro21bet.Domain.Entities
         public Standings Standings { get; set; }
         public IEnumerable<Match> HomeMatches { get; set; }
         public IEnumerable<Match> AwayMatches { get; set; }
+        public IEnumerable<TeamBet> Bets { get; set; }
+
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Euro21bet.Domain.Common;
 using Euro21bet.Domain.Enums;
 
@@ -29,5 +30,6 @@ namespace Euro21bet.Domain.Entities
 
         public int RoundId { get; set; }
         public Round Round { get; set; }
+        public IEnumerable<TeamBet> Bets { get; set; }
     }
 }
