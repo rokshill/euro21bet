@@ -13,7 +13,7 @@ const routes: Routes = [
 		children: [
 			{
 				path: '',
-				redirectTo: ROUTES.MATCHES,
+				redirectTo: ROUTES.MATCH,
 				pathMatch: 'full',
 			},
 			{
@@ -27,7 +27,7 @@ const routes: Routes = [
 					import('@modules/standings/standings.module').then(m => m.StandingsModule)
 			},
 			{
-				path: ROUTES.MATCHES,
+				path: ROUTES.MATCH,
 				loadChildren: () =>
 					import('@app/modules/match/match.module').then(m => m.MatchModule)
 			},

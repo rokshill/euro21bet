@@ -9,6 +9,6 @@ namespace Euro21bet.Application.Matches.Queries
         public int Id { get; set; }
         public string Name { get; set; }
         public string Type { get; set; }
-        public IEnumerable<MatchVm> Matches { get; set; } = new List<MatchVm>();
+        public IList<MatchVm> Matches { get; set; } = new List<MatchVm>();
     }
 }

@@ -2,7 +2,7 @@ export const ROUTES = {
 
 	TEAM: 'team',
 	STANDINGS: 'standings',
-	MATCHES: 'matches',
+	MATCH: 'match',
 
 	CONTACT: 'contact',
 	NOT_FOUND: 'not-found'

@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using Euro21bet.Application.Common.Interfaces;
@@ -26,7 +27,7 @@ namespace Euro21bet.Application.Matches.Queries
 
         public async Task<MatchesPageVm> Handle(GetMatchesQuery request, CancellationToken cancellationToken)
         {
-            var rounds = await _context.Rounds.Include(g => g.Matches).AsNoTracking().ProjectToListAsync<RoundVm>(_mapper.ConfigurationProvider);
+            var rounds = await _context.Rounds.AsNoTracking().Include(g => g.Matches.OrderBy(m => m.MatchDateTime)).ProjectToListAsync<RoundVm>(_mapper.ConfigurationProvider);
 
             return new MatchesPageVm()
             {

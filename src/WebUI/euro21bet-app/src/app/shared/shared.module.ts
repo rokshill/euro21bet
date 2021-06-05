@@ -1,5 +1,6 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
 
 
@@ -7,10 +8,14 @@ import { CommonModule } from '@angular/common';
 	declarations: [
 	],
 	imports: [
-		CommonModule
+		CommonModule,
+		ProgressSpinnerModule,
 	],
 	exports: [
-		CommonModule
+		CommonModule,
+		ProgressSpinnerModule,
+	],
+	providers: [
 	]
 })
 export class SharedModule { }

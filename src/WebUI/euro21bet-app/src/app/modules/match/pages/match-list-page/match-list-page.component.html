@@ -1,3 +1,7 @@
-<ng-container>
-	<pre>{{ matches$ | async | json }}</pre>
-</ng-container>
+<section class="content">
+	<e21b-round-list [rounds]="rounds$ | async" [isLoading]="isLoading | async">
+	</e21b-round-list>
+	<ng-container>
+		<pre>{{ rounds$ | async | json }}</pre>
+	</ng-container>
+</section>
