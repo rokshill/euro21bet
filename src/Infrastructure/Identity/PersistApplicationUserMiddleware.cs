@@ -3,14 +3,14 @@ using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
-using Euro21bet.Application.Common.Interfaces.Identity;
-using Euro21bet.Application.Common.Security;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
+using TournamentForm.Application.Common.Interfaces.Identity;
+using TournamentForm.Application.Common.Security;
 
-namespace Euro21bet.Infrastructure.Identity
+namespace TournamentForm.Infrastructure.Identity
 {
     public class PersistApplicationUserMiddleware
     {

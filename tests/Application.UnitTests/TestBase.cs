@@ -1,7 +1,5 @@
 ﻿using System;
 using AutoMapper;
-using IRIS.Application.Common.Interfaces.Identity;
-using IRIS.Application.Common.Mappings;
 using Moq;
 
 namespace IRIS.Application.UnitTests

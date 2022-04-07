@@ -1,0 +1,7 @@
+<section class="content">
+	<roksh-item-list [items]="items$ | async" [isLoading]="isLoading | async">
+	</roksh-item-list>
+	<ng-container>
+		<pre>{{ items$ | async | json }}</pre>
+	</ng-container>
+</section>

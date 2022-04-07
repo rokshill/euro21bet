@@ -2,9 +2,6 @@
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using IRIS.Application.Common.Interfaces.Identity;
-using IRIS.Infrastructure.Persistence;
-using IRIS.WebUI;
 using MediatR;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -13,6 +10,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Moq;
 using NUnit.Framework;
 using Respawn;
+using TournamentForm.Infrastructure.Persistence;
+using TournamentForm.WebUI;
 
 namespace IRIS.Application.IntegrationTests
 {

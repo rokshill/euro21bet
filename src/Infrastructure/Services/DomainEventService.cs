@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Euro21bet.Application.Common.Interfaces;
-using Euro21bet.Application.Common.Models;
-using Euro21bet.Domain.Common;
 using MediatR;
 using Microsoft.Extensions.Logging;
+using TournamentForm.Application.Common.Interfaces;
+using TournamentForm.Application.Common.Models;
+using TournamentForm.Domain.Common;
 
-namespace Euro21bet.Infrastructure.Services
+namespace TournamentForm.Infrastructure.Services
 {
     public class DomainEventService : IDomainEventService
     {

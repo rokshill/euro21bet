@@ -4,12 +4,12 @@ using System.Security.Authentication;
 using System.Threading;
 using System.Threading.Tasks;
 using Ardalis.GuardClauses;
-using Euro21bet.Application.Common.Interfaces;
-using Euro21bet.Application.Common.Interfaces.Identity;
-using Euro21bet.Application.Common.Security;
-using Euro21bet.Domain.Entities;
+using TournamentForm.Application.Common.Interfaces;
+using TournamentForm.Application.Common.Interfaces.Identity;
+using TournamentForm.Application.Common.Security;
+using TournamentForm.Domain.Entities;
 
-namespace Euro21bet.Infrastructure.Identity
+namespace TournamentForm.Infrastructure.Identity
 {
     public class UserService : IUserService
     {

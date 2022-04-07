@@ -1,11 +1,11 @@
 ﻿using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
-using Euro21bet.Application.Common.Interfaces.Identity;
 using MediatR;
 using Microsoft.Extensions.Logging;
+using TournamentForm.Application.Common.Interfaces.Identity;
 
-namespace Euro21bet.Application.Common.Behaviours
+namespace TournamentForm.Application.Common.Behaviours
 {
     public class PerformanceBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
     {
@@ -38,7 +38,7 @@ namespace Euro21bet.Application.Common.Behaviours
                 var requestName = typeof(TRequest).Name;
 
                 _logger.LogWarning(
-                    "Euro21bet Long Running Request: {Name} ({ElapsedMilliseconds} milliseconds) {@UserId} {@Request}",
+                    "TournamentForm Long Running Request: {Name} ({ElapsedMilliseconds} milliseconds) {@UserId} {@Request}",
                     requestName, elapsedMilliseconds, _currentIdentityUserProvider.Email, request);
             }
 

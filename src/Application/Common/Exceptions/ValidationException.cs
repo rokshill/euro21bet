@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using FluentValidation.Results;
 
-namespace Euro21bet.Application.Common.Exceptions
+namespace TournamentForm.Application.Common.Exceptions
 {
     public class ValidationException : Exception
     {

@@ -1,15 +1,15 @@
-﻿using Euro21bet.Application.Common.Interfaces;
-using Euro21bet.Application.Common.Interfaces.Identity;
-using Euro21bet.Application.Common.Security;
-using Euro21bet.Infrastructure.Identity;
-using Euro21bet.Infrastructure.Persistence;
-using Euro21bet.Infrastructure.Services;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using TournamentForm.Application.Common.Interfaces;
+using TournamentForm.Application.Common.Interfaces.Identity;
+using TournamentForm.Application.Common.Security;
+using TournamentForm.Infrastructure.Identity;
+using TournamentForm.Infrastructure.Persistence;
+using TournamentForm.Infrastructure.Services;
 
-namespace Euro21bet.Infrastructure
+namespace TournamentForm.Infrastructure
 {
     public static class DependencyInjection
     {
@@ -18,7 +18,7 @@ namespace Euro21bet.Infrastructure
             if (configuration.GetValue<bool>("UseInMemoryDatabase"))
             {
                 services.AddDbContext<ApplicationDbContext>(options =>
-                    options.UseInMemoryDatabase("Euro21betDb"));
+                    options.UseInMemoryDatabase("TournamentForm"));
             }
             else
             {
@@ -40,8 +40,8 @@ namespace Euro21bet.Infrastructure
                 options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
             }).AddJwtBearer(options =>
             {
-                options.Authority = "https://muchoborwroclaw.eu.auth0.com/";
-                options.Audience = "https://euro21bet.muchoborwroclaw.pl/api";
+                options.Authority = "https://rokshill-dev.eu.auth0.com/";
+                options.Audience = "https://default.rokshill.dev/api";
                 options.SaveToken = true;
             });
             

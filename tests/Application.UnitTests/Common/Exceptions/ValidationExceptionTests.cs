@@ -1,6 +1,4 @@
-﻿using IRIS.Application.Common.Exceptions;
-using FluentAssertions;
-using FluentValidation.Results;
+﻿using FluentValidation.Results;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;

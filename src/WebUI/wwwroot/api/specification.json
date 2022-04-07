@@ -2,23 +2,65 @@
   "x-generator": "NSwag v13.11.1.0 (NJsonSchema v10.4.3.0 (Newtonsoft.Json v12.0.0.0))",
   "openapi": "3.0.0",
   "info": {
-    "title": "Euro21bet API",
+    "title": "TournamentForm API",
     "version": "1.0.0"
   },
   "paths": {
-    "/api/Match": {
+    "/api/Item": {
       "get": {
         "tags": [
-          "Match"
+          "Item"
         ],
-        "operationId": "Match_GetAll",
+        "operationId": "Item_GetAll",
         "responses": {
           "200": {
             "description": "",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/MatchesPageVm"
+                  "$ref": "#/components/schemas/ItemsPageVm"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Item/anonymous": {
+      "get": {
+        "tags": [
+          "Item"
+        ],
+        "operationId": "Item_AnonymousPage",
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/octet-stream": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Item/user": {
+      "get": {
+        "tags": [
+          "Item"
+        ],
+        "operationId": "Item_UserPage",
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/octet-stream": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
                 }
               }
             }
@@ -31,47 +73,20 @@
         ]
       }
     },
-    "/api/Standings": {
+    "/api/Item/admin": {
       "get": {
         "tags": [
-          "Standings"
+          "Item"
         ],
-        "operationId": "Standings_GetAll",
+        "operationId": "Item_AdminPage",
         "responses": {
           "200": {
             "description": "",
             "content": {
-              "application/json": {
+              "application/octet-stream": {
                 "schema": {
-                  "$ref": "#/components/schemas/StandingsPageVm"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "JWT": []
-          }
-        ]
-      }
-    },
-    "/api/Team": {
-      "get": {
-        "tags": [
-          "Team"
-        ],
-        "operationId": "Team_GetAll",
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/TeamDto"
-                  }
+                  "type": "string",
+                  "format": "binary"
                 }
               }
             }
@@ -87,19 +102,19 @@
   },
   "components": {
     "schemas": {
-      "MatchesPageVm": {
+      "ItemsPageVm": {
         "type": "object",
         "additionalProperties": false,
         "properties": {
-          "rounds": {
+          "items": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/RoundVm"
+              "$ref": "#/components/schemas/ItemVm"
             }
           }
         }
       },
-      "RoundVm": {
+      "ItemVm": {
         "type": "object",
         "additionalProperties": false,
         "properties": {
@@ -107,166 +122,14 @@
             "type": "integer",
             "format": "int32"
           },
-          "name": {
-            "type": "string"
-          },
-          "type": {
-            "type": "string"
-          },
-          "matches": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/MatchVm"
-            }
-          }
-        }
-      },
-      "MatchVm": {
-        "type": "object",
-        "additionalProperties": false,
-        "properties": {
-          "id": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "matchDateTime": {
+          "itemDateTime": {
             "type": "string",
             "format": "date-time"
           },
-          "type": {
+          "title": {
             "type": "string"
           },
-          "homeTeam": {
-            "$ref": "#/components/schemas/TeamVm"
-          },
-          "awayTeam": {
-            "$ref": "#/components/schemas/TeamVm"
-          }
-        }
-      },
-      "TeamVm": {
-        "type": "object",
-        "additionalProperties": false,
-        "properties": {
-          "id": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "name": {
-            "type": "string"
-          },
-          "shortName": {
-            "type": "string"
-          },
-          "crestUrl": {
-            "type": "string"
-          },
-          "groupId": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "group": {
-            "type": "string"
-          }
-        }
-      },
-      "StandingsPageVm": {
-        "type": "object",
-        "additionalProperties": false,
-        "properties": {
-          "standings": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/StandingsVm"
-            }
-          }
-        }
-      },
-      "StandingsVm": {
-        "type": "object",
-        "additionalProperties": false,
-        "properties": {
-          "name": {
-            "type": "string"
-          },
-          "records": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/StandingsRecord"
-            }
-          }
-        }
-      },
-      "StandingsRecord": {
-        "type": "object",
-        "additionalProperties": false,
-        "properties": {
-          "position": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "crestUrl": {
-            "type": "string"
-          },
-          "teamId": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "team": {
-            "type": "string"
-          },
-          "matchesPlayed": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "won": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "draw": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "loss": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "goalFor": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "goalAgainst": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "goalDifference": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "points": {
-            "type": "integer",
-            "format": "int32"
-          }
-        }
-      },
-      "TeamDto": {
-        "type": "object",
-        "additionalProperties": false,
-        "properties": {
-          "id": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "name": {
-            "type": "string"
-          },
-          "shortName": {
-            "type": "string"
-          },
-          "crestUrl": {
-            "type": "string"
-          },
-          "group": {
+          "description": {
             "type": "string"
           }
         }

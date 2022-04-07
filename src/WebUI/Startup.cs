@@ -1,10 +1,5 @@
 using System.IO;
 using System.Linq;
-using Euro21bet.Application;
-using Euro21bet.Infrastructure;
-using Euro21bet.Infrastructure.Identity;
-using Euro21bet.Infrastructure.Persistence;
-using Euro21bet.WebUI.Filters;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -14,8 +9,13 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using NSwag;
 using NSwag.Generation.Processors.Security;
+using TournamentForm.Application;
+using TournamentForm.Infrastructure;
+using TournamentForm.Infrastructure.Identity;
+using TournamentForm.Infrastructure.Persistence;
+using TournamentForm.WebUI.Filters;
 
-namespace Euro21bet.WebUI
+namespace TournamentForm.WebUI
 {
     public class Startup
     {
@@ -54,12 +54,12 @@ namespace Euro21bet.WebUI
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {
-                configuration.RootPath = "euro21bet-app/dist";
+                configuration.RootPath = "tournament-form-app/dist";
             });
 
             services.AddOpenApiDocument(configure =>
             {
-                configure.Title = "Euro21bet API";
+                configure.Title = "TournamentForm API";
                 configure.AddSecurity("JWT", Enumerable.Empty<string>(), new OpenApiSecurityScheme
                 {
                     Type = OpenApiSecuritySchemeType.ApiKey,
@@ -131,7 +131,7 @@ namespace Euro21bet.WebUI
                 // To learn more about options for serving an Angular SPA from ASP.NET Core,
                 // see https://go.microsoft.com/fwlink/?linkid=864501
 
-                spa.Options.SourcePath = "euro21bet-app";
+                spa.Options.SourcePath = "tournament-form-app";
 
                 if (env.IsDevelopment())
                 {

@@ -1,6 +1,6 @@
-﻿using Euro21bet.Application.Common.Interfaces.Identity;
+﻿using TournamentForm.Application.Common.Interfaces.Identity;
 
-namespace Euro21bet.Infrastructure.Identity
+namespace TournamentForm.Infrastructure.Identity
 {
     public class EmptyUserProvider : ICurrentIdentityUserProvider
     {

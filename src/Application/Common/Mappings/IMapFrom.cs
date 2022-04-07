@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 
-namespace Euro21bet.Application.Common.Mappings
+namespace TournamentForm.Application.Common.Mappings
 {
     public interface IMapFrom<T>
     {   

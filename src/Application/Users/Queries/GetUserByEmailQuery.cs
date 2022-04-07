@@ -1,11 +1,11 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
-using Euro21bet.Application.Common.Interfaces;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using TournamentForm.Application.Common.Interfaces;
 
-namespace Euro21bet.Application.Users.Queries
+namespace TournamentForm.Application.Users.Queries
 {
     public class GetUserByEmailQuery : IRequest<UserDto>
     {

@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.Extensions.Logging;
 
-namespace Euro21bet.Application.Common.Behaviours
+namespace TournamentForm.Application.Common.Behaviours
 {
     public class UnhandledExceptionBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
     {
@@ -25,7 +25,7 @@ namespace Euro21bet.Application.Common.Behaviours
             {
                 var requestName = typeof(TRequest).Name;
 
-                _logger.LogError(ex, "Euro21bet Request: Unhandled Exception for Request {UserName} {@Request}", requestName, request);
+                _logger.LogError(ex, "TournamentForm Request: Unhandled Exception for Request {UserName} {@Request}", requestName, request);
 
                 throw;
             }

@@ -2,18 +2,19 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
-    <RootNamespace>Euro21bet.WebUI</RootNamespace>
-    <AssemblyName>Euro21bet.WebUI</AssemblyName>
+    <RootNamespace>TournamentForm.WebUI</RootNamespace>
+    <AssemblyName>TournamentForm.WebUI</AssemblyName>
     <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
     <TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
     <IsPackable>true</IsPackable>
     <!--<IncludeOpenAPIAnalyzers>true</IncludeOpenAPIAnalyzers>-->
-    <SpaRoot>euro21bet-app\</SpaRoot>
+    <SpaRoot>tournament-form-app\</SpaRoot>
     <DefaultItemExcludes>$(DefaultItemExcludes);$(SpaRoot)node_modules\**</DefaultItemExcludes>
     <Nullable>enable</Nullable>
 
     <!-- Set this to true if you enable server-side prerendering -->
     <BuildServerSideRenderer>false</BuildServerSideRenderer>
+    <UserSecretsId>dd96160d-a28e-46e2-aa22-095f8e59358c</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -35,12 +36,12 @@
 
   <ItemGroup>
     <!-- Don't publish the SPA source files, but do show them in the project files list -->
-    <Compile Remove="euro21bet-app\**" />
+    <Compile Remove="tournament-form-app\**" />
     <Content Remove="$(SpaRoot)**" />
-    <Content Remove="euro21bet-app\**" />
-    <EmbeddedResource Remove="euro21bet-app\**" />
+    <Content Remove="tournament-form-app\**" />
+    <EmbeddedResource Remove="tournament-form-app\**" />
     <None Remove="$(SpaRoot)**" />
-    <None Remove="euro21bet-app\**" />
+    <None Remove="tournament-form-app\**" />
     <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
   </ItemGroup>
 

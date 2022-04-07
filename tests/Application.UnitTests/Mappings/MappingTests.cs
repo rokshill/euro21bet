@@ -1,13 +1,6 @@
 ﻿using System;
 using System.Runtime.Serialization;
 using AutoMapper;
-using FluentAssertions;
-using IRIS.Application.Assays.Queries.GetAssaysWithSearchAndPagination;
-using IRIS.Application.Common.Mappings;
-using IRIS.Application.Sessions.Queries;
-using IRIS.Application.Users;
-using IRIS.Domain.Entities;
-using IRIS.Domain.ValueObjects;
 using NUnit.Framework;
 
 namespace IRIS.Application.UnitTests.Mappings

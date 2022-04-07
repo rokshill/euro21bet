@@ -1,10 +1,10 @@
 ﻿using System.Reflection;
-using Euro21bet.Application.Common.Behaviours;
 using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
+using TournamentForm.Application.Common.Behaviours;
 
-namespace Euro21bet.Application
+namespace TournamentForm.Application
 {
     public static class Bootstrapper
     {

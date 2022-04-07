@@ -3,7 +3,7 @@ using System.Linq;
 using System.Reflection;
 using AutoMapper;
 
-namespace Euro21bet.Application.Common.Mappings
+namespace TournamentForm.Application.Common.Mappings
 {
     public class MappingProfile : Profile
     {

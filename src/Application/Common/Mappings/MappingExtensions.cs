@@ -3,10 +3,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
-using Euro21bet.Application.Common.Models;
 using Microsoft.EntityFrameworkCore;
+using TournamentForm.Application.Common.Models;
 
-namespace Euro21bet.Application.Common.Mappings
+namespace TournamentForm.Application.Common.Mappings
 {
     public static class MappingExtensions
     {

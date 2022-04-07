@@ -1,4 +1,4 @@
-﻿namespace Euro21bet.Application.Common.Security
+﻿namespace TournamentForm.Application.Common.Security
 {
     /// <summary>
     /// Contains a list of all the Azure AD app roles this app depends on and works with.

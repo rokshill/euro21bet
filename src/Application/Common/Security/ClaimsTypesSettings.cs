@@ -1,4 +1,4 @@
-﻿namespace Euro21bet.Application.Common.Security
+﻿namespace TournamentForm.Application.Common.Security
 {
     public class ClaimsTypesSettings
     {

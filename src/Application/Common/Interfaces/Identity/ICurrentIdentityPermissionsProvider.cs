@@ -1,6 +1,6 @@
-﻿using Euro21bet.Application.Common.Models.Authorization;
+﻿using TournamentForm.Application.Common.Models.Authorization;
 
-namespace Euro21bet.Application.Common.Interfaces.Identity
+namespace TournamentForm.Application.Common.Interfaces.Identity
 {
     public interface ICurrentIdentityPermissionsProvider
     {

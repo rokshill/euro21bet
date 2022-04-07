@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Euro21bet.Application.Common.Interfaces
+namespace TournamentForm.Application.Common.Interfaces
 {
     public interface IDateTime
     {

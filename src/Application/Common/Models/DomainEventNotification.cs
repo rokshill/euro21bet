@@ -1,7 +1,7 @@
-﻿using Euro21bet.Domain.Common;
-using MediatR;
+﻿using MediatR;
+using TournamentForm.Domain.Common;
 
-namespace Euro21bet.Application.Common.Models
+namespace TournamentForm.Application.Common.Models
 {
     public class DomainEventNotification<TDomainEvent> : INotification where TDomainEvent : DomainEvent
     {

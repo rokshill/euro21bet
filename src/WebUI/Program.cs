@@ -1,13 +1,13 @@
 using System;
 using System.Threading.Tasks;
-using Euro21bet.Infrastructure.Persistence;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using TournamentForm.Infrastructure.Persistence;
 
-namespace Euro21bet.WebUI
+namespace TournamentForm.WebUI
 {
     public class Program
     {

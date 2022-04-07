@@ -1,10 +1,10 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using Euro21bet.Application.Common.Interfaces.Identity;
 using MediatR.Pipeline;
 using Microsoft.Extensions.Logging;
+using TournamentForm.Application.Common.Interfaces.Identity;
 
-namespace Euro21bet.Application.Common.Behaviours
+namespace TournamentForm.Application.Common.Behaviours
 {
     public class LoggingBehaviour<TRequest> : IRequestPreProcessor<TRequest>
     {
@@ -21,7 +21,7 @@ namespace Euro21bet.Application.Common.Behaviours
         {
             var requestName = typeof(TRequest).Name;
 
-            _logger.LogInformation("Euro21bet Request: {Name} {Email} {@Request}",
+            _logger.LogInformation("TournamnetForm Request: {Name} {Email} {@Request}",
                 requestName, _currentIdentityUserProvider.Email, request);
         }
     }

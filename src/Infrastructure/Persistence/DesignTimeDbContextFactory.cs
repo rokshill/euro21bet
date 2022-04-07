@@ -1,11 +1,11 @@
 ﻿using System.IO;
-using Euro21bet.Infrastructure.Identity;
-using Euro21bet.Infrastructure.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
+using TournamentForm.Infrastructure.Identity;
+using TournamentForm.Infrastructure.Services;
 
-namespace Euro21bet.Infrastructure.Persistence
+namespace TournamentForm.Infrastructure.Persistence
 {
     public class DesignTimeDbContextFactory : IDesignTimeDbContextFactory<ApplicationDbContext>
     {

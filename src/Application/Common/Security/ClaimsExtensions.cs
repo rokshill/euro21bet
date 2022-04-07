@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 
-namespace Euro21bet.Application.Common.Security
+namespace TournamentForm.Application.Common.Security
 {
     public static class ClaimsExtensions
     {

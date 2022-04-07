@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using IRIS.Domain.Entities;
-using IRIS.Domain.ValueObjects;
 
 namespace IRIS.Application.IntegrationTests
 {

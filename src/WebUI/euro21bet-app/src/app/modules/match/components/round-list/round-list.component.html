@@ -1,9 +1,0 @@
-<div>
-	<div *ngIf="rounds" class="p-d-flex p-flex-column">
-		<ng-container *ngFor="let r of rounds">
-			<h4>{{ r.name }}</h4>
-			<e21b-match-list [matches]="r.matches"></e21b-match-list>
-		</ng-container>
-	</div>
-	<p-progressSpinner *ngIf="isLoading"></p-progressSpinner>
-</div>

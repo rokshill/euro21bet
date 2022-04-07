@@ -1,7 +1,7 @@
-﻿using Euro21bet.Application.Common.Mappings;
-using Euro21bet.Domain.Entities;
+﻿using TournamentForm.Application.Common.Mappings;
+using TournamentForm.Domain.Entities;
 
-namespace Euro21bet.Application.Users
+namespace TournamentForm.Application.Users
 {
     public class UserDto : IMapFrom<User>
     {

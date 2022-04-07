@@ -1,8 +1,4 @@
-﻿using IRIS.Application.Common.Interfaces;
-using IRIS.Domain.Entities;
-using IRIS.Infrastructure.Persistence;
-using IRIS.Infrastructure.Services;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace IRIS.Application.UnitTests
 {

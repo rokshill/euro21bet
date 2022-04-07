@@ -1,5 +1,5 @@
 ﻿using System;
-using IRIS.Domain.Entities;
+using TournamentForm.Domain.Entities;
 
 namespace IRIS.TestUtils
 {

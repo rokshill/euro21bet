@@ -1,12 +1,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Authentication;
-using Euro21bet.Application.Common.Interfaces.Identity;
-using Euro21bet.Application.Common.Models.Authorization;
-using Euro21bet.Application.Common.Security;
 using IdentityServer4.Extensions;
+using TournamentForm.Application.Common.Interfaces.Identity;
+using TournamentForm.Application.Common.Models.Authorization;
+using TournamentForm.Application.Common.Security;
 
-namespace Euro21bet.Infrastructure.Identity
+namespace TournamentForm.Infrastructure.Identity
 {
     public sealed class UserIdentity : ICurrentIdentityPermissionsProvider, ICurrentIdentityUserProvider, ICurrentIdentitySetter
     {

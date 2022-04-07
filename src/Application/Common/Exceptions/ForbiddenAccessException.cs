@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Euro21bet.Application.Common.Exceptions
+namespace TournamentForm.Application.Common.Exceptions
 {
     public class ForbiddenAccessException : Exception
     {

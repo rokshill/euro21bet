@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using FluentValidation.Results;
 
-namespace Euro21bet.Application.Common.Models
+namespace TournamentForm.Application.Common.Models
 {
     public abstract class Result
     {

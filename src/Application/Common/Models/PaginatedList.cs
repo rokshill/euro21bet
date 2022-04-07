@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 
-namespace Euro21bet.Application.Common.Models
+namespace TournamentForm.Application.Common.Models
 {
     public class PaginatedList<T> 
     {

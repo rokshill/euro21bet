@@ -30,7 +30,7 @@
       "serviceHost": null,
       "serviceBasePath": null,
       "serviceSchemes": [],
-      "infoTitle": "Euro21bet API",
+      "infoTitle": "TournamentForm API",
       "infoDescription": null,
       "infoVersion": "1.0.0",
       "documentTemplate": null,
@@ -110,7 +110,7 @@
       "enumNameGeneratorType": null,
       "serviceHost": null,
       "serviceSchemes": null,
-      "output": "euro21bet-app/src/app/web-api-client.ts"
+      "output": "tournament-form-app/src/app/web-api-client.ts"
     }
   }
 }

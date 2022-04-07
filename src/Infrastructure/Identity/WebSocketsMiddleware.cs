@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 
-namespace Euro21bet.Infrastructure.Identity
+namespace TournamentForm.Infrastructure.Identity
 {
     public class WebSocketsMiddleware
     {

@@ -1,10 +1,5 @@
-﻿using System.Linq;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
-using FluentAssertions;
-using IRIS.Application.Assays.Queries.GetAssaysWithSearchAndPagination;
-using IRIS.Domain.Entities;
-using IRIS.Domain.ValueObjects;
 using IRIS.TestUtils;
 using NUnit.Framework;
 

@@ -2,13 +2,13 @@
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
-using Euro21bet.Application.Common.Interfaces;
-using Euro21bet.Application.Common.Interfaces.Identity;
-using Euro21bet.Domain.Common;
-using Euro21bet.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
+using TournamentForm.Application.Common.Interfaces;
+using TournamentForm.Application.Common.Interfaces.Identity;
+using TournamentForm.Domain.Common;
+using TournamentForm.Domain.Entities;
 
-namespace Euro21bet.Infrastructure.Persistence
+namespace TournamentForm.Infrastructure.Persistence
 {
     public class ApplicationDbContext : DbContext, IApplicationDbContext
     {
@@ -28,11 +28,7 @@ namespace Euro21bet.Infrastructure.Persistence
         }
 
         public DbSet<User> Users { get; set; }
-        public DbSet<Round> Rounds { get; set; }
-        public DbSet<Group> Groups { get; set; }
-        public DbSet<Team> Teams { get; set; }
-        public DbSet<Match> Matches { get; set; }
-        public DbSet<Venue> Venues { get; set; }
+        public DbSet<Item> Items { get; set; }
 
 
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new())
@@ -86,7 +82,7 @@ namespace Euro21bet.Infrastructure.Persistence
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            builder.HasDefaultSchema("euro21bet");
+            builder.HasDefaultSchema("tournamentform");
             builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
 
             base.OnModelCreating(builder);

@@ -1,7 +1,7 @@
 ﻿using System;
-using Euro21bet.Application.Common.Interfaces;
+using TournamentForm.Application.Common.Interfaces;
 
-namespace Euro21bet.Infrastructure.Services
+namespace TournamentForm.Infrastructure.Services
 {
     public class DateTimeService : IDateTime
     {

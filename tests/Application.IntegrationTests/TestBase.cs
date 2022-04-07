@@ -1,6 +1,5 @@
 ﻿using NUnit.Framework;
 using System.Threading.Tasks;
-using IRIS.Infrastructure.Persistence;
 
 namespace IRIS.Application.IntegrationTests
 {

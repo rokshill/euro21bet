@@ -2,8 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
-    <RootNamespace>Euro21bet.Application</RootNamespace>
-    <AssemblyName>Euro21bet.Application</AssemblyName>
+    <RootNamespace>TournamentForm.Application</RootNamespace>
+    <AssemblyName>TournamentForm.Application</AssemblyName>
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
@@ -19,11 +19,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Domain\Domain.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Teams\Commands\" />
-    <Folder Include="Teams\Queries\" />
   </ItemGroup>
 
 </Project>

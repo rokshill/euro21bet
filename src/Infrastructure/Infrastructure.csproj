@@ -2,8 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
-    <RootNamespace>Euro21bet.Infrastructure</RootNamespace>
-    <AssemblyName>Euro21bet.Infrastructure</AssemblyName>
+    <RootNamespace>TournamentForm.Infrastructure</RootNamespace>
+    <AssemblyName>TournamentForm.Infrastructure</AssemblyName>
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
@@ -24,6 +24,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Application\Application.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Persistence\Migrations\" />
   </ItemGroup>
 
 </Project>

@@ -4,9 +4,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using FluentValidation;
 using MediatR;
-using ValidationException = Euro21bet.Application.Common.Exceptions.ValidationException;
+using ValidationException = TournamentForm.Application.Common.Exceptions.ValidationException;
 
-namespace Euro21bet.Application.Common.Behaviours
+namespace TournamentForm.Application.Common.Behaviours
 {
     public class ValidationBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
         where TRequest : IRequest<TResponse>

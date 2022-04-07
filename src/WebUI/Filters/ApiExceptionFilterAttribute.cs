@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using Euro21bet.Application.Common.Exceptions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using TournamentForm.Application.Common.Exceptions;
 
-namespace Euro21bet.WebUI.Filters
+namespace TournamentForm.WebUI.Filters
 {
     public class ApiExceptionFilterAttribute : ExceptionFilterAttribute
     {

@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
-using Euro21bet.Domain.Common;
+using TournamentForm.Domain.Common;
 
-namespace Euro21bet.Application.Common.Interfaces
+namespace TournamentForm.Application.Common.Interfaces
 {
     public interface IDomainEventService
     {

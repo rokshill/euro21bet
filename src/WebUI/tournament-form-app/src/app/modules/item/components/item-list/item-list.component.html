@@ -1,0 +1,18 @@
+<div>
+	<div *ngIf="items" class="p-d-flex item-list">
+		<div>
+			<div *ngFor="let m of items" class="item-container">
+				<div class="p-d-flex p-jc-between">
+					<div class="p-d-flex p-flex-column">
+						<div class="p-d-flex p-ai-center">
+							<span class="p-ml-2">{{ m.title }}</span>
+							<span class="p-ml-2">{{ m.description }}</span>
+							<span class="p-ml-2">{{ m.itemDateTime | date: 'EEE, dd MMM HH:mm' }}</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- <p-progressSpinner *ngIf="isLoading"></p-progressSpinner> -->
+</div>

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Ardalis.GuardClauses;
 
-namespace Euro21bet.Domain.Entities
+namespace TournamentForm.Domain.Entities
 {
     public class User
     {
@@ -19,7 +19,5 @@ namespace Euro21bet.Domain.Entities
         public string Name { get; private set; }
         public string Nickname { get; private set; }
         public string Picture { get; private set; }
-        public IEnumerable<MatchBet> MatchBets { get; set; } 
-        public IEnumerable<TeamBet> TeamBets { get; set; } 
     }
 }

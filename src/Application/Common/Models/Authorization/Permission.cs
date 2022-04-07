@@ -1,4 +1,4 @@
-﻿namespace Euro21bet.Application.Common.Models.Authorization
+﻿namespace TournamentForm.Application.Common.Models.Authorization
 {
     public enum Permission
     {

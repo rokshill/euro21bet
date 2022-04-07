@@ -1,8 +1,8 @@
-﻿using Euro21bet.Domain.Entities;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using TournamentForm.Domain.Entities;
 
-namespace Euro21bet.Infrastructure.Persistence.Configurations
+namespace TournamentForm.Infrastructure.Persistence.Configurations
 {
     public class UserConfiguration : IEntityTypeConfiguration<User>
     {

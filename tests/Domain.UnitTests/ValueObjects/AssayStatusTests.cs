@@ -1,7 +1,5 @@
 ﻿using System;
 using FluentAssertions;
-using IRIS.Domain.Enums;
-using IRIS.Domain.ValueObjects;
 using NUnit.Framework;
 
 namespace IRIS.Domain.UnitTests.ValueObjects

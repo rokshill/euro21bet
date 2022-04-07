@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Euro21bet.Domain.Common
+namespace TournamentForm.Domain.Common
 {
     public interface IHasDomainEvent
     {

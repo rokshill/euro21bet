@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Euro21bet.Domain.Common
+namespace TournamentForm.Domain.Common
 {
     public abstract class AuditableEntity : Entity
     {
